@@ -1,3 +1,4 @@
+#https://www.reddit.com/r/dailyprogrammer/comments/ffxabb/20200309_challenge_383_easy_necklace_matching/
 def movechars(strvar):
     firstchar = strvar[0]
     for i in range(len(strvar)):
