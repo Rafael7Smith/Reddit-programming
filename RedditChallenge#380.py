@@ -16,18 +16,40 @@ import textwrap
 def smalpha(input):
     morsedecoded = ""
     alphabetraw = ".- -... -.-. -.. . ..-. --. .... .. .--- -.- .-.. -- -. --- .--. --.- .-. ... - ..- ...- .-- -..- -.-- --.."
-    morsedictionary = dict(zip(string.ascii_lowercase, alphabetraw.split()))
+    morsedictionary = dict(zip(alphabetraw.split(), string.ascii_lowercase))
     print morsedictionary
-    #splitmessage = textwrap.wrap(input, 3)
-    #splitmessage = list(map(''.join, zip(*[iter(input)]*2)))
-    splitmessage = tuple(input[i:i+3] for i in range(0, len(input),3))
-    print(splitmessage)
-    for char in splitmessage:
-        print char
-        if char in morsedictionary:
-             print morsedictionary[char]
+    #this will need to be redone - misunderstood the premise, each letter only appears once
+    #this program attempts to decode via:
+    #check 3 characters for a matching letter
+        #if none
+            #check first 2 char for matching letter
+            #move position, repeat
+        #else
+            #move position, repeat
+    position = 0
+    while(position < len(input)-1):
+        checkcode = ''
+        char3flag = False
+        #grab 2 characters
+        for i in range(3):
+            checkcode += input[(i+position)]
+        if checkcode in morsedictionary:
+            #print morsedictionary[checkcode]
+            morsedecoded += morsedictionary[checkcode]
+            char3flag = True
+        if not char3flag:
+            #grab 3 characters
+            for i in range(2):
+                checkcode += input[(i+position)]
+            if checkcode in morsedictionary:
+                #print morsedictionary[checkcode]
+                morsedecoded += morsedictionary[checkcode]
+            position += 2
+        else:
+            position += 3
     
     print(morsedecoded)
+    print("Ended on position: " + str(position) + " message length: " + str(len(input)))
     return
     
     
